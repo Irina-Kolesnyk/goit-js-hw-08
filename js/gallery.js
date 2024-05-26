@@ -65,4 +65,39 @@ const images = [
 ];
 
 
+const gallery = document.querySelector('.gallery');
+const galleryItem = images
+  .map(image =>`<li class="gallery-item">
+  <a class="gallery-link" href="${image.original}">
+    <img
+      class="gallery-image"
+      src="${image.preview}"
+      data-source="${image.original}"
+      alt="${image.description}"
+    />
+  </a>
+</li>`)
+  .join('');
+gallery.insertAdjacentHTML('afterbegin', galleryItem);
+
+
+gallery.addEventListener('click', event => {
+  event.preventDefault();
+
+  const galleryLink = event.target.closest('.gallery-link');
+  if (!galleryLink) return;
+
+  const largeImage = event.target.dataset.source;
+  console.log(largeImage);
+
+  const revision = basicLightbox.create(
+    `<img src="${largeImage}" width="800" heidht="600">`
+  );
+  revision.show();
+});
+
+
+
+
+
 
